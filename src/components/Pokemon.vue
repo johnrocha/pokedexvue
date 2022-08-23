@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="content">
-        <button class="button is-medium is-fullwidth" @click="changeSprite">Mudar Lado</button>
+        <button class="button is-medium is-fullwidth" @click="changeSprite">Mudar de Lado</button>
       </div>
     </div>
   </div>
