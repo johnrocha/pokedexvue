@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div class="column is-half is-offset-one-quarter">
-      <img src="./assets/logo.png" alt="Pokemon Logo" width="80%">
-      <!-- <input type="text" name="" id="" placeholder="Buscar Pokemon" class="input is-rounded" v-model="search"> -->
-      <!-- <button id="searchBtn" class="button is-fullwidth is-success is-rounded" @click="searchPokemons">Buscar</button> -->
+    <div class="column is-half is-offset-one-quarter is-clickable">
+      <img src="./assets/logo.png" alt="Pokemon Logo" width="80%" @click="home">
+      <input type="text" placeholder="Buscar Pokemon" class="input is-rounded" v-model="search">
+      <button id="searchBtn" class="button is-fullwidth is-success is-rounded" @click="searchPokemons">Buscar</button>
     </div>
     <div>
       <div id="pokemon-list">
@@ -31,7 +31,7 @@ export default {
       search: ''
     }
   },
-  // Função é executada quando a página é criada
+
   created: function() {
     api.get('pokemon?limit=151&offset=0').then((response) => { 
       this.pokemons = response.data.results;
@@ -44,8 +44,14 @@ export default {
       if(this.search == '' || this.search == ' ') {
         this.filteredPokemons = this.pokemons;
       } else {
-        this.filteredPokemons = this.pokemons.filter((pokemon) => pokemon.name == this.search);
+        this.filteredPokemons = this.pokemons.filter((pokemon) => {
+          return pokemon.name.toLowerCase().includes(this.search)
+        });
       }
+    },
+
+    home: function () {
+      this.filteredPokemons = this.pokemons;
     }
   }
 }
